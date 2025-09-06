@@ -6,7 +6,6 @@ name
 price
 imageUrl? // for frontend display
 dateAdded // for sorting by date
-shopId // reference to Shop
 isBouquet // optional: to distinguish bouquet vs single flower
 }
 
@@ -33,7 +32,6 @@ Shop {
 \_id
 name
 address
-flowers: [{ flowerId, stock }]
 location: { lat, lng } // useful for maps integration
 }
 
@@ -42,6 +40,13 @@ User {
 email
 phone
 lastDeliveryAddress? // optional, updated on new order
+}
+
+Inventory {
+\_id
+shopId
+flowerId
+stock
 }
 
 sorting by price

@@ -4,18 +4,6 @@ const shopSchema = new Schema(
   {
     name: { type: String, required: true },
     address: { type: String, required: true },
-    flowers: {
-      type: [
-        {
-          flowerId: {
-            type: Schema.Types.ObjectId,
-            ref: 'flowers',
-            required: true,
-          },
-          stock: { type: Number, required: true },
-        },
-      ],
-    },
     location: {
       type: {
         lat: { type: Number, required: true },
@@ -26,4 +14,4 @@ const shopSchema = new Schema(
   { timestamps: true, versionKey: false },
 );
 
-export const shopsCollection = model('shops', shopSchema);
+export const ShopsCollection = model('shops', shopSchema);

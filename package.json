@@ -20,6 +20,7 @@
     "nodemon": "^3.1.10"
   },
   "dependencies": {
+    "@redocly/cli": "^2.0.8",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
