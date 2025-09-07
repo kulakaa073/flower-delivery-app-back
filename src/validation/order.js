@@ -47,13 +47,12 @@ export const createOrderSchema = Joi.object({
       return true;
     }),
   couponId: Joi.string()
-    .required()
-    .custom((value, helper) => {
-      if (value && !isValidObjectId(value)) {
-        return helper.message('Coupon id should be a valid mongo id');
-      }
-      return true;
-    }),
+  .custom((value, helper) => {
+    if (value && !isValidObjectId(value)) {
+      return helper.message('Coupon id should be a valid mongo id');
+    }
+    return true;
+  }),
   phone: Joi.string().required(),
   email: Joi.string().email().required(),
 });

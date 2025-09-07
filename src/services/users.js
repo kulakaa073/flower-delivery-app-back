@@ -1,6 +1,6 @@
 import { UsersCollection } from '../db/models/user.js';
 
-export const getUser = async ({ email, phone }) => {
+export const getUser = async (email, phone) => {
   let query = null;
 
   if (email && phone) {

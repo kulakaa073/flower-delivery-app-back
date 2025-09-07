@@ -14,7 +14,7 @@ export const getShopInventory = async ({
   shopId,
   page = 1,
   perPage = 9,
-  sortBy = '_id',
+  sortBy = 'createdAt',
   sortOrder = SORT_ORDER.ASC,
   userId = null,
 }) => {
@@ -23,13 +23,11 @@ export const getShopInventory = async ({
   let favourites = [];
   if (userId) {
     const user = await UsersCollection.findById(userId).lean();
-    favourites =
-      user?.favourites?.map((f) => new mongoose.Types.ObjectId(f.flowerId)) ||
-      [];
+    favourites = user?.favourites?.map((f) => f.flowerId) || [];
   }
 
   const pipeline = [
-    { $match: { shopId: new mongoose.Types.ObjectId(shopId) } },
+    { $match: { shopId: mongoose.Types.ObjectId.createFromHexString(shopId) } },
     {
       $addFields: {
         isFavorite: { $in: ['$flowerId', favourites] },
@@ -45,13 +43,31 @@ export const getShopInventory = async ({
     },
     { $unwind: '$flower' },
     {
+      $addFields: {
+        sortField: `$flower.${sortBy}`,
+      },
+    },
+    {
       $sort: {
-        isFavorite: -1, // favourites first
-        [`flower.${sortBy}`]: sortOrder,
+        isFavorite: -1,
+        sortField: sortOrder,
       },
     },
     { $skip: skip },
     { $limit: perPage },
+    {
+      $project: {
+        _id: '$flower._id',
+        name: '$flower.name',
+        price: '$flower.price',
+        imageUrl: '$flower.imageUrl',
+        isBouquet: '$flower.isBouquet',
+        createdAt: '$flower.createdAt',
+        updatedAt: '$flower.updatedAt',
+        stock: 1, // from inventory
+        isFavorite: 1, // our computed field
+      },
+    },
   ];
 
   const [flowers, flowersCount] = await Promise.all([

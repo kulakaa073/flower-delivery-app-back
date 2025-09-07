@@ -7,21 +7,23 @@ export const getOrderById = async (orderId) => {
   return order;
 };
 
-export const getOrders = async ({ userId }) => {
-  const orders = await OrdersCollection.find({ userId: userId }).lean();
+export const getOrders = async (userId) => {
+  const orders = await OrdersCollection.find({ userId }).lean();
   return orders;
 };
 
 export const createOrder = async (params) => {
   const { phone, email, ...orderData } = params;
-  const coupon = await CouponsCollection.findById(orderData.couponId);
+  let coupon;
+  if (orderData.couponId) {
+    coupon = await CouponsCollection.findById(orderData.couponId);
+    if (!coupon) {
+      throw createHttpError(400, 'Coupon does not exist');
+    }
 
-  if (!coupon) {
-    throw createHttpError(400, 'Coupon does not exist');
-  }
-
-  if (coupon.validUntil && coupon.validUntil > Date.now()) {
-    throw createHttpError(400, 'Coupon is expired');
+    if (coupon.validUntil && coupon.validUntil > Date.now()) {
+      throw createHttpError(400, 'Coupon is expired');
+    }
   }
 
   const checkTotal = (items, total, coupon = null) => {
@@ -29,24 +31,23 @@ export const createOrder = async (params) => {
       (acc, item) => acc + item.count * item.priceAtPurchase,
       0,
     );
-    switch (coupon.discountType) {
-      case 'percent':
-        sum = sum * (1 - coupon.discountValue / 100);
-        break;
-      case 'fixed':
-        sum = sum - coupon.discountValue;
-        break;
-      default:
-        throw createHttpError(
-          500,
-          'Something went wrong when applying coupon discount',
-        );
+    if (coupon) {
+      switch (coupon.discountType) {
+        case 'percent':
+          sum = sum * (1 - coupon ? coupon.discountValue / 100 : 0);
+          break;
+        case 'fixed':
+          sum = sum - coupon.discountValue || 0;
+          break;
+        default:
+          throw createHttpError(
+            500,
+            'Something went wrong when applying coupon discount',
+          );
+      }
     }
 
-    if (total != sum) {
-      return false;
-    }
-    return true;
+    return total === sum;
   };
 
   if (!checkTotal(params.items, params.total, coupon)) {

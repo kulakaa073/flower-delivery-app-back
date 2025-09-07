@@ -87,18 +87,11 @@ export const createOrderController = async (req, res, next) => {
   const email = req.body.email;
   const phone = req.body.phone;
 
-  let user = await getUser(email, phone);
-
-  if (!user) {
-    user = await UsersCollection.create({
-      email: email,
-      phone: phone,
-      lastDeliveryAddress: req.body.deliveryAddress,
-    });
-  } else {
-    user.lastDeliveryAddress = req.body.deliveryAddress;
-    await user.save();
-  }
+  const user = await UsersCollection.findOneAndUpdate(
+    { email, phone },
+    { $set: { lastDeliveryAddress: req.body.deliveryAddress } },
+    { new: true, upsert: true }, // create if not exists
+  );
 
   const order = await createOrder({ ...req.body, userId: user._id });
 
