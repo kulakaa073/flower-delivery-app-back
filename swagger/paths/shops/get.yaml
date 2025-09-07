@@ -1,0 +1,28 @@
+tags:
+  - Shops
+summary: Get shops list
+operationId: getShops
+description: 'Retrieve a list of shops'
+security: []
+responses:
+  '200':
+    description: Successfully retrieved shops!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - message
+            - data
+          properties:
+            message:
+              type: string
+              example: 'Shops retrieved successfully'
+            data:
+              type: array
+              items:
+                $ref: '../../components/schemas/shop.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

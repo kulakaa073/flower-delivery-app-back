@@ -1,0 +1,28 @@
+tags:
+  - Coupons
+summary: Get coupons list
+operationId: getCoupons
+description: 'Retrieve a list of coupons'
+security: []
+responses:
+  '200':
+    description: Successfully retrieved coupons!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - message
+            - data
+          properties:
+            message:
+              type: string
+              example: 'Coupons retrieved successfully'
+            data:
+              type: array
+              items:
+                $ref: '../../components/schemas/coupon.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

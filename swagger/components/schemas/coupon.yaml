@@ -1,0 +1,30 @@
+type: object
+required:
+  - _id
+  - code
+  - discountType
+  - discountValue
+  - validUntil
+properties:
+  _id:
+    description: "Recipe's unique identifier"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  code:
+    description: 'Code of the coupon'
+    type: string
+    example: 65e4decdd286b30065d54af9
+  discountType:
+    description: 'Type of the discount'
+    type: string
+    enum: ['percent', 'fixed']
+    example: percent
+  discountValue:
+    description: 'Value of the discount'
+    type: number
+    example: 5
+  validUntil:
+    description: 'Date of coupon expiring (YYYY-MM-DDTHH:MM:SSZ)'
+    type: string
+    format: date-time
+    example: '2025-07-21T17:32:28Z'

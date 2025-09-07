@@ -1,5 +1,5 @@
-import { InventoryCollection } from '../db/models/inventory';
-import { ShopsCollection } from '../db/models/shop';
+import { InventoryCollection } from '../db/models/inventory.js';
+import { ShopsCollection } from '../db/models/shop.js';
 import { SORT_ORDER } from '../constants/index.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { UsersCollection } from '../db/models/user.js';

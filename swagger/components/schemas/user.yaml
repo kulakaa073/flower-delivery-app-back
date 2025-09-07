@@ -1,0 +1,33 @@
+type: object
+required:
+  - _id
+  - phone
+  - email
+properties:
+  _id:
+    description: "User's unique identifier"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  phone:
+    description: 'Phone of the user'
+    type: string
+    example: '+1234567890'
+  email:
+    description: 'Email address of the user'
+    type: string
+    format: email
+    example: 'user@example.com'
+  lastDeliveryAddress:
+    description: 'Address of last delivery'
+    type: string
+    example: '123 Main Street'
+  favourites:
+    description: 'List of favourite flowers IDs'
+    type: array
+    items:
+      type: object
+      properties:
+        flowerId:
+          description: 'ID of the flower'
+          type: string
+          example: '65e4decdd286b30065d54af9'

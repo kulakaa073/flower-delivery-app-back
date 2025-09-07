@@ -1,0 +1,48 @@
+tags:
+  - Orders
+summary: Gets list of orders for the user
+operationId: getOrders
+description: 'Get oders of the user'
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - phone
+        properties:
+          email:
+            description: 'Email address of the user'
+            type: string
+            format: email
+            example: 'user@example.com'
+          phone:
+            description: 'Phone of the user'
+            type: string
+            example: '+1234567890'
+responses:
+  '200':
+    description: Successfully found orders
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - message
+            - data
+          properties:
+            message:
+              type: string
+              example: 'Recipe created successfully'
+            data:
+              type: array
+              items:
+                $ref: ../../../components/schemas/order.yaml
+  '400':
+    $ref: '../../../components/responses/400.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'

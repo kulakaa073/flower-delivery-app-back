@@ -1,0 +1,82 @@
+tags:
+  - Orders
+summary: Create an order
+operationId: createOrder
+description: 'Create an order'
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - items
+          - total
+          - deliveryAddress
+          - shopId
+          - email
+          - phone
+        properties:
+          items:
+            description: 'List of flowers ordered'
+            type: array
+            items:
+              type: object
+              required:
+                - flowerId
+                - count
+                - priceAtPurchase
+              properties:
+                flowerId:
+                  description: "flower's unique id"
+                  type: string
+                  example: 65e4decdd286b30065d54af9
+                count:
+                  description: 'Number of flowers in the order'
+                  type: number
+                  example: '10'
+                priceAtPurchase:
+                  description: 'Price at moment of order creation'
+                  type: number
+                  example: '9.99'
+          total:
+            description: 'Sum of the order (after appying coupon discount)'
+            type: number
+            example: '99.99'
+          deliveryAddress:
+            description: 'Address of the delivery'
+            type: string
+            example: '123 Main Street'
+          shopId:
+            description: "Shop's unique id from which flowers was ordered"
+            type: string
+            example: 65e4decdd286b30065d54af9
+          email:
+            description: 'Email address of the user'
+            type: string
+            format: email
+            example: 'user@example.com'
+          phone:
+            description: 'Phone of the user'
+            type: string
+            example: '+1234567890'
+responses:
+  '200':
+    description: Successfully created an order
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - message
+            - data
+          properties:
+            message:
+              type: string
+              example: 'Order successfully'
+            data:
+              $ref: ../../components/schemas/order.yaml
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

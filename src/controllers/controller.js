@@ -15,7 +15,7 @@ import { UsersCollection } from '../db/models/user.js';
 export const getShopsController = async (req, res, next) => {
   const shops = await getShops();
   res.status(200).json({
-    message: 'Successfully found shops!',
+    message: 'Shops retrieved successfully',
     data: shops,
   });
 };
@@ -144,14 +144,14 @@ export const updateFavouritesController = async (req, res, next) => {
   const phone = req.body.phone;
   const user = await getUser(email, phone);
 
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+
   const updatedFavourites = await updateFavourites(
     user._id,
     req.body.favourites,
   );
-
-  if (!updatedFavourites) {
-    throw createHttpError(404, 'User not found');
-  }
 
   res.status(201).json({
     message: 'Successfully updated user favourites',

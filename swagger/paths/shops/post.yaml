@@ -1,0 +1,85 @@
+tags:
+  - Shops
+summary: Gets list of flowers from the shop
+operationId: getShopInventory
+description: 'Get shop inventory'
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - phone
+        properties:
+          phone:
+            description: 'Phone of the user'
+            type: string
+            example: '+1234567890'
+          email:
+            description: 'Email address of the user'
+            type: string
+            format: email
+            example: 'user@example.com'
+parameters:
+  - in: path
+    name: id
+    required: true
+    description: 'Id of the shop'
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+responses:
+  '200':
+    description: Successfully found shop invenory
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - message
+            - data
+          properties:
+            message:
+              type: string
+              example: 'Recipe created successfully'
+            data:
+              type: object
+              required:
+                - data
+                - page
+                - perPage
+                - totalPages
+                - totalItems
+                - hasNextPage
+                - hasPreviousPage
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: ../../components/schemas/flower.yaml
+                page:
+                  type: integer
+                  example: 1
+                perPage:
+                  type: integer
+                  example: 9
+                totalPages:
+                  type: integer
+                  example: 5
+                totalItems:
+                  type: integer
+                  example: 50
+                hasNextPage:
+                  type: boolean
+                  example: true
+                hasPreviousPage:
+                  type: boolean
+                  example: false
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

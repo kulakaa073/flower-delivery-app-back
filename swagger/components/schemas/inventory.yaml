@@ -1,0 +1,28 @@
+type: object
+required:
+  - _id
+  - shopId
+  - flowerId
+  - stock
+properties:
+  _id:
+    description: "Ingredient's unique identifier"
+    type: string
+    example: '65e4decdd286b30065d54af9'
+  shopId:
+    description: "Shop's unique identifier"
+    type: string
+    example: '65e4decdd286b30065d54af9'
+  flowerId:
+    description: "Flower's unique identifier"
+    type: string
+    example: '65e4decdd286b30065d54af9'
+  stock:
+    description: 'Amount of flowers in the shop'
+    type: number
+    example: 999
+  createdAt:
+    description: 'Date of adding the flower (YYYY-MM-DDTHH:MM:SSZ)'
+    type: string
+    format: date-time
+    example: '2025-07-21T17:32:28Z'

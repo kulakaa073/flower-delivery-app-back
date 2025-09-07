@@ -20,7 +20,7 @@ const router = Router();
 router.get('/shops', ctrlWrapper(getShopsController));
 router.get('/orders/:orderId', ctrlWrapper(getOrderByIdController));
 router.post(
-  '/orders',
+  '/orders/history',
   validateBody(userDataSchema),
   ctrlWrapper(getOrdersController),
 );

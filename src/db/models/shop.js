@@ -9,6 +9,7 @@ const shopSchema = new Schema(
         lat: { type: Number, required: true },
         lng: { type: Number, required: true },
       },
+      required: true,
     },
   },
   { timestamps: true, versionKey: false },

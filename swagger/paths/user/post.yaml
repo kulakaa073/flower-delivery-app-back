@@ -1,0 +1,44 @@
+tags:
+  - User
+summary: Get user data
+operationId: getUser
+description: 'Retrieve the authenticated user data'
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - phone
+        properties:
+          phone:
+            description: 'Phone of the user'
+            type: string
+            example: '+1234567890'
+          email:
+            description: 'Email address of the user'
+            type: string
+            format: email
+            example: 'user@example.com'
+responses:
+  '200':
+    description: Successfully retrieved user data!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - message
+            - data
+          properties:
+            message:
+              type: string
+              example: 'User data retrieved successfully'
+            data:
+              $ref: '../../components/schemas/user.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

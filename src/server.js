@@ -5,6 +5,7 @@ import { getEnvVar } from './utils/getEnvVar.js';
 import indexRouter from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = getEnvVar('PORT', 3000);
 const HOST = getEnvVar('APP_DOMAIN');
@@ -21,7 +22,7 @@ export const startServer = () => {
       },
     }),
   );
-
+  app.use('/api-docs', swaggerDocs());
   app.get('/', (req, res) => {
     res.status(200).json({
       message: `Welcome to MongoDB test API! OpenAPI documentation is available at ${HOST}/api-docs`,

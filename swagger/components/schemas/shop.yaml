@@ -1,0 +1,34 @@
+type: object
+required:
+  - _id
+  - name
+  - address
+  - location
+properties:
+  _id:
+    description: "Shop's unique identifier"
+    type: string
+    example: '65e4decdd286b30065d54af9'
+  name:
+    description: 'Name of the shop'
+    type: string
+    example: 'Flower.inc'
+  address:
+    description: 'Address of the shop'
+    type: string
+    example: '123 Main Street'
+  location:
+    description: 'Longtitude and latitude of the shop, for Google Maps'
+    type: object
+    required:
+      - lat
+      - lng
+    properties:
+      lat:
+        description: 'Latitude of the shop'
+        type: number
+        example: '2.22222222222'
+      lng:
+        description: 'Longtitude of the shop'
+        type: number
+        example: '2.22222222222'

@@ -1,0 +1,29 @@
+type: object
+required:
+  - _id
+  - name
+  - price
+  - imageUrl
+  - isBouquet
+properties:
+  _id:
+    description: "Recipe's unique identifier"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  name:
+    description: 'Name of the flower'
+    type: string
+    example: 'Rose'
+  imageUrl:
+    description: 'URL of the flower photo'
+    type: string
+    format: uri
+    example: 'https://example.com/photo.jpg'
+  price:
+    description: 'Price of the flower'
+    type: number
+    example: 9.99
+  isBouquet:
+    description: 'Arbitrary boolean to notify user its already a bouquet'
+    type: boolean
+    example: false

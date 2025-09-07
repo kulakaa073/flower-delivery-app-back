@@ -1,0 +1,65 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Flower delivery API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a sample server for Flower delivery API.
+tags:
+  - name: Shops
+    description: Operations about shops.
+  - name: Orders
+    description: Orders operations.
+  - name: User
+    description: User operations.
+  - name: Coupons
+    description: Coupons operations.
+  - name: Favourites
+    description: Favourites operations.
+servers:
+  - url: http://localhost:3000
+  - url: https://api.example.com
+paths:
+  /api/shops:
+    get:
+      $ref: ../swagger/paths/shops/get.yaml
+  /api/shops/{id}/flowers:
+    post:
+      $ref: ../swagger/paths/shops/post.yaml
+  /api/favourites:
+    patch:
+      $ref: ../swagger/paths/favourites/patch.yaml
+  /api/orders/{id}:
+    get:
+      $ref: ../swagger/paths/orders/{id}/get.yaml
+  /api/orders/history:
+    post:
+      $ref: ../swagger/paths/orders/history/post.yaml
+  /api/orders:
+    post:
+      $ref: ../swagger/paths/orders/post.yaml
+  /api/coupons:
+    get:
+      $ref: ../swagger/paths/coupons/get.yaml
+  /api/user:
+    post:
+      $ref: ../swagger/paths/user/post.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    coupon:
+      $ref: ../swagger/components/schemas/coupon.yaml
+    flower:
+      $ref: ../swagger/components/schemas/flower.yaml
+    user:
+      $ref: ../swagger/components/schemas/user.yaml
+    inventory:
+      $ref: ../swagger/components/schemas/inventory.yaml
+    order:
+      $ref: ../swagger/components/schemas/order.yaml
+    shop:
+      $ref: ../swagger/components/schemas/shop.yaml

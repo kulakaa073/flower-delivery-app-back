@@ -1,5 +1,5 @@
-import { CouponsCollection } from '../db/models/coupon';
-import { OrdersCollection } from '../db/models/order';
+import { CouponsCollection } from '../db/models/coupon.js';
+import { OrdersCollection } from '../db/models/order.js';
 import createHttpError from 'http-errors';
 
 export const getOrderById = async (orderId) => {

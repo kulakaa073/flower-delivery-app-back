@@ -1,0 +1,36 @@
+tags:
+  - Orders
+summary: Get order by id
+operationId: getOrderById
+description: 'Get order by id'
+security: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    description: 'Id of the order'
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+responses:
+  '200':
+    description: Successfully found an order
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - message
+            - data
+          properties:
+            message:
+              type: string
+              example: 'Successfully found an order'
+            data:
+              $ref: ../../../components/schemas/order.yaml
+  '400':
+    $ref: '../../../components/responses/400.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'

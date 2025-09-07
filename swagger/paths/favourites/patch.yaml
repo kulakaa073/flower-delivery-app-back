@@ -1,0 +1,64 @@
+tags:
+  - Favourites
+summary: Updates list of user favourites
+operationId: updateFavourites
+description: 'Update list of user favourites'
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - phone
+          - favourites
+        properties:
+          phone:
+            description: 'Phone of the user'
+            type: string
+            example: '+1234567890'
+          email:
+            description: 'Email address of the user'
+            type: string
+            format: email
+            example: 'user@example.com'
+          favourites:
+            description: 'List of favourite flowers IDs'
+            type: array
+            items:
+              type: object
+              properties:
+                flowerId:
+                  description: 'ID of the flower'
+                  type: string
+                  example: '65e4decdd286b30065d54af9'
+responses:
+  '201':
+    description: Successfully updated user's favourites
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - message
+            - data
+          properties:
+            message:
+              type: string
+              example: 'Successfully updated users favourites'
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  flowerId:
+                    description: 'ID of the flower'
+                    type: string
+                    example: '65e4decdd286b30065d54af9'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

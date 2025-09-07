@@ -1,0 +1,1078 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Flower delivery API",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "This is a sample server for Flower delivery API."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    },
+    {
+      "url": "https://api.example.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Shops",
+      "description": "Operations about shops."
+    },
+    {
+      "name": "Orders",
+      "description": "Orders operations."
+    },
+    {
+      "name": "User",
+      "description": "User operations."
+    },
+    {
+      "name": "Coupons",
+      "description": "Coupons operations."
+    },
+    {
+      "name": "Favourites",
+      "description": "Favourites operations."
+    }
+  ],
+  "paths": {
+    "/api/shops": {
+      "get": {
+        "tags": [
+          "Shops"
+        ],
+        "summary": "Get shops list",
+        "operationId": "getShops",
+        "description": "Retrieve a list of shops",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved shops!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Shops retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/shop"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/shops/{id}/flowers": {
+      "post": {
+        "tags": [
+          "Shops"
+        ],
+        "summary": "Gets list of flowers from the shop",
+        "operationId": "getShopInventory",
+        "description": "Get shop inventory",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "phone"
+                ],
+                "properties": {
+                  "phone": {
+                    "description": "Phone of the user",
+                    "type": "string",
+                    "example": "+1234567890"
+                  },
+                  "email": {
+                    "description": "Email address of the user",
+                    "type": "string",
+                    "format": "email",
+                    "example": "user@example.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Id of the shop",
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found shop invenory",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Recipe created successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "data",
+                        "page",
+                        "perPage",
+                        "totalPages",
+                        "totalItems",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/flower"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 9
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 5
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 50
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/favourites": {
+      "patch": {
+        "tags": [
+          "Favourites"
+        ],
+        "summary": "Updates list of user favourites",
+        "operationId": "updateFavourites",
+        "description": "Update list of user favourites",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "phone",
+                  "favourites"
+                ],
+                "properties": {
+                  "phone": {
+                    "description": "Phone of the user",
+                    "type": "string",
+                    "example": "+1234567890"
+                  },
+                  "email": {
+                    "description": "Email address of the user",
+                    "type": "string",
+                    "format": "email",
+                    "example": "user@example.com"
+                  },
+                  "favourites": {
+                    "description": "List of favourite flowers IDs",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "flowerId": {
+                          "description": "ID of the flower",
+                          "type": "string",
+                          "example": "65e4decdd286b30065d54af9"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully updated user's favourites",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated users favourites"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "flowerId": {
+                            "description": "ID of the flower",
+                            "type": "string",
+                            "example": "65e4decdd286b30065d54af9"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get order by id",
+        "operationId": "getOrderById",
+        "description": "Get order by id",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Id of the order",
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found an order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found an order"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/order"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/orders/history": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Gets list of orders for the user",
+        "operationId": "getOrders",
+        "description": "Get oders of the user",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "phone"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "Email address of the user",
+                    "type": "string",
+                    "format": "email",
+                    "example": "user@example.com"
+                  },
+                  "phone": {
+                    "description": "Phone of the user",
+                    "type": "string",
+                    "example": "+1234567890"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully found orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Recipe created successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/order"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/orders": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Create an order",
+        "operationId": "createOrder",
+        "description": "Create an order",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "items",
+                  "total",
+                  "deliveryAddress",
+                  "shopId",
+                  "email",
+                  "phone"
+                ],
+                "properties": {
+                  "items": {
+                    "description": "List of flowers ordered",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "flowerId",
+                        "count",
+                        "priceAtPurchase"
+                      ],
+                      "properties": {
+                        "flowerId": {
+                          "description": "flower's unique id",
+                          "type": "string",
+                          "example": "65e4decdd286b30065d54af9"
+                        },
+                        "count": {
+                          "description": "Number of flowers in the order",
+                          "type": "number",
+                          "example": "10"
+                        },
+                        "priceAtPurchase": {
+                          "description": "Price at moment of order creation",
+                          "type": "number",
+                          "example": "9.99"
+                        }
+                      }
+                    }
+                  },
+                  "total": {
+                    "description": "Sum of the order (after appying coupon discount)",
+                    "type": "number",
+                    "example": "99.99"
+                  },
+                  "deliveryAddress": {
+                    "description": "Address of the delivery",
+                    "type": "string",
+                    "example": "123 Main Street"
+                  },
+                  "shopId": {
+                    "description": "Shop's unique id from which flowers was ordered",
+                    "type": "string",
+                    "example": "65e4decdd286b30065d54af9"
+                  },
+                  "email": {
+                    "description": "Email address of the user",
+                    "type": "string",
+                    "format": "email",
+                    "example": "user@example.com"
+                  },
+                  "phone": {
+                    "description": "Phone of the user",
+                    "type": "string",
+                    "example": "+1234567890"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created an order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Order successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/order"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/coupons": {
+      "get": {
+        "tags": [
+          "Coupons"
+        ],
+        "summary": "Get coupons list",
+        "operationId": "getCoupons",
+        "description": "Retrieve a list of coupons",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved coupons!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Coupons retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/coupon"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get user data",
+        "operationId": "getUser",
+        "description": "Retrieve the authenticated user data",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "phone"
+                ],
+                "properties": {
+                  "phone": {
+                    "description": "Phone of the user",
+                    "type": "string",
+                    "example": "+1234567890"
+                  },
+                  "email": {
+                    "description": "Email address of the user",
+                    "type": "string",
+                    "format": "email",
+                    "example": "user@example.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user data!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User data retrieved successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "coupon": {
+        "type": "object",
+        "required": [
+          "_id",
+          "code",
+          "discountType",
+          "discountValue",
+          "validUntil"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Recipe's unique identifier",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "code": {
+            "description": "Code of the coupon",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "discountType": {
+            "description": "Type of the discount",
+            "type": "string",
+            "enum": [
+              "percent",
+              "fixed"
+            ],
+            "example": "percent"
+          },
+          "discountValue": {
+            "description": "Value of the discount",
+            "type": "number",
+            "example": 5
+          },
+          "validUntil": {
+            "description": "Date of coupon expiring (YYYY-MM-DDTHH:MM:SSZ)",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-07-21T17:32:28Z"
+          }
+        }
+      },
+      "flower": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "price",
+          "imageUrl",
+          "isBouquet"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Recipe's unique identifier",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "name": {
+            "description": "Name of the flower",
+            "type": "string",
+            "example": "Rose"
+          },
+          "imageUrl": {
+            "description": "URL of the flower photo",
+            "type": "string",
+            "format": "uri",
+            "example": "https://example.com/photo.jpg"
+          },
+          "price": {
+            "description": "Price of the flower",
+            "type": "number",
+            "example": 9.99
+          },
+          "isBouquet": {
+            "description": "Arbitrary boolean to notify user its already a bouquet",
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "user": {
+        "type": "object",
+        "required": [
+          "_id",
+          "phone",
+          "email"
+        ],
+        "properties": {
+          "_id": {
+            "description": "User's unique identifier",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "phone": {
+            "description": "Phone of the user",
+            "type": "string",
+            "example": "+1234567890"
+          },
+          "email": {
+            "description": "Email address of the user",
+            "type": "string",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "lastDeliveryAddress": {
+            "description": "Address of last delivery",
+            "type": "string",
+            "example": "123 Main Street"
+          },
+          "favourites": {
+            "description": "List of favourite flowers IDs",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "flowerId": {
+                  "description": "ID of the flower",
+                  "type": "string",
+                  "example": "65e4decdd286b30065d54af9"
+                }
+              }
+            }
+          }
+        }
+      },
+      "inventory": {
+        "type": "object",
+        "required": [
+          "_id",
+          "shopId",
+          "flowerId",
+          "stock"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Ingredient's unique identifier",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "shopId": {
+            "description": "Shop's unique identifier",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "flowerId": {
+            "description": "Flower's unique identifier",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "stock": {
+            "description": "Amount of flowers in the shop",
+            "type": "number",
+            "example": 999
+          },
+          "createdAt": {
+            "description": "Date of adding the flower (YYYY-MM-DDTHH:MM:SSZ)",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-07-21T17:32:28Z"
+          }
+        }
+      },
+      "order": {
+        "type": "object",
+        "required": [
+          "_id",
+          "items",
+          "total",
+          "deliveryAddress",
+          "shopId",
+          "userId"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Recipe's unique identifier",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "items": {
+            "description": "List of flowers ordered",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "flowerId",
+                "count",
+                "priceAtPurchase"
+              ],
+              "properties": {
+                "flowerId": {
+                  "description": "flower's unique id",
+                  "type": "string",
+                  "example": "65e4decdd286b30065d54af9"
+                },
+                "count": {
+                  "description": "Number of flowers in the order",
+                  "type": "number",
+                  "example": "10"
+                },
+                "priceAtPurchase": {
+                  "description": "Price at moment of order creation",
+                  "type": "number",
+                  "example": "9.99"
+                }
+              }
+            }
+          },
+          "total": {
+            "description": "Sum of the order (after appying coupon discount)",
+            "type": "number",
+            "example": "99.99"
+          },
+          "deliveryAddress": {
+            "description": "Address of the delivery",
+            "type": "string",
+            "example": "123 Main Street"
+          },
+          "shopId": {
+            "description": "Shop's unique id from which flowers was ordered",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "userId": {
+            "description": "ID of the user that placed the order",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "couponId": {
+            "description": "ID of the coupon if it was applied",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "createdAt": {
+            "description": "Date of order creation (YYYY-MM-DDTHH:MM:SSZ)",
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-07-21T17:32:28Z"
+          }
+        }
+      },
+      "shop": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "address",
+          "location"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Shop's unique identifier",
+            "type": "string",
+            "example": "65e4decdd286b30065d54af9"
+          },
+          "name": {
+            "description": "Name of the shop",
+            "type": "string",
+            "example": "Flower.inc"
+          },
+          "address": {
+            "description": "Address of the shop",
+            "type": "string",
+            "example": "123 Main Street"
+          },
+          "location": {
+            "description": "Longtitude and latitude of the shop, for Google Maps",
+            "type": "object",
+            "required": [
+              "lat",
+              "lng"
+            ],
+            "properties": {
+              "lat": {
+                "description": "Latitude of the shop",
+                "type": "number",
+                "example": "2.22222222222"
+              },
+              "lng": {
+                "description": "Longtitude of the shop",
+                "type": "number",
+                "example": "2.22222222222"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad Request"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid request data"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not Found"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The requested resource was not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal Server Error"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "An unexpected error occurred"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
