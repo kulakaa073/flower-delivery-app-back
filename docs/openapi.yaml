@@ -18,8 +18,7 @@ tags:
   - name: Favourites
     description: Favourites operations.
 servers:
-  - url: http://localhost:3000
-  - url: https://api.example.com
+  - url: https://flower-delivery-app-back.onrender.com
 paths:
   /api/shops:
     get:

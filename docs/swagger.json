@@ -11,10 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
-    },
-    {
-      "url": "https://api.example.com"
+      "url": "https://flower-delivery-app-back.onrender.com"
     }
   ],
   "tags": [
@@ -42,9 +39,7 @@
   "paths": {
     "/api/shops": {
       "get": {
-        "tags": [
-          "Shops"
-        ],
+        "tags": ["Shops"],
         "summary": "Get shops list",
         "operationId": "getShops",
         "description": "Retrieve a list of shops",
@@ -56,10 +51,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "message",
-                    "data"
-                  ],
+                  "required": ["message", "data"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -87,9 +79,7 @@
     },
     "/api/shops/{id}/flowers": {
       "post": {
-        "tags": [
-          "Shops"
-        ],
+        "tags": ["Shops"],
         "summary": "Gets list of flowers from the shop",
         "operationId": "getShopInventory",
         "description": "Get shop inventory",
@@ -99,10 +89,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "phone"
-                ],
+                "required": ["email", "phone"],
                 "properties": {
                   "phone": {
                     "description": "Phone of the user",
@@ -139,10 +126,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "message",
-                    "data"
-                  ],
+                  "required": ["message", "data"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -211,9 +195,7 @@
     },
     "/api/favourites": {
       "patch": {
-        "tags": [
-          "Favourites"
-        ],
+        "tags": ["Favourites"],
         "summary": "Updates list of user favourites",
         "operationId": "updateFavourites",
         "description": "Update list of user favourites",
@@ -223,11 +205,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "phone",
-                  "favourites"
-                ],
+                "required": ["email", "phone", "favourites"],
                 "properties": {
                   "phone": {
                     "description": "Phone of the user",
@@ -266,10 +244,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "message",
-                    "data"
-                  ],
+                  "required": ["message", "data"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -307,9 +282,7 @@
     },
     "/api/orders/{id}": {
       "get": {
-        "tags": [
-          "Orders"
-        ],
+        "tags": ["Orders"],
         "summary": "Get order by id",
         "operationId": "getOrderById",
         "description": "Get order by id",
@@ -333,10 +306,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "message",
-                    "data"
-                  ],
+                  "required": ["message", "data"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -364,9 +334,7 @@
     },
     "/api/orders/history": {
       "post": {
-        "tags": [
-          "Orders"
-        ],
+        "tags": ["Orders"],
         "summary": "Gets list of orders for the user",
         "operationId": "getOrders",
         "description": "Get oders of the user",
@@ -376,10 +344,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "phone"
-                ],
+                "required": ["email", "phone"],
                 "properties": {
                   "email": {
                     "description": "Email address of the user",
@@ -404,10 +369,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "message",
-                    "data"
-                  ],
+                  "required": ["message", "data"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -438,9 +400,7 @@
     },
     "/api/orders": {
       "post": {
-        "tags": [
-          "Orders"
-        ],
+        "tags": ["Orders"],
         "summary": "Create an order",
         "operationId": "createOrder",
         "description": "Create an order",
@@ -464,11 +424,7 @@
                     "type": "array",
                     "items": {
                       "type": "object",
-                      "required": [
-                        "flowerId",
-                        "count",
-                        "priceAtPurchase"
-                      ],
+                      "required": ["flowerId", "count", "priceAtPurchase"],
                       "properties": {
                         "flowerId": {
                           "description": "flower's unique id",
@@ -526,10 +482,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "message",
-                    "data"
-                  ],
+                  "required": ["message", "data"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -554,9 +507,7 @@
     },
     "/api/coupons": {
       "get": {
-        "tags": [
-          "Coupons"
-        ],
+        "tags": ["Coupons"],
         "summary": "Get coupons list",
         "operationId": "getCoupons",
         "description": "Retrieve a list of coupons",
@@ -568,10 +519,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "message",
-                    "data"
-                  ],
+                  "required": ["message", "data"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -599,9 +547,7 @@
     },
     "/api/user": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Get user data",
         "operationId": "getUser",
         "description": "Retrieve the authenticated user data",
@@ -611,10 +557,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "phone"
-                ],
+                "required": ["email", "phone"],
                 "properties": {
                   "phone": {
                     "description": "Phone of the user",
@@ -639,10 +582,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "message",
-                    "data"
-                  ],
+                  "required": ["message", "data"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -697,10 +637,7 @@
           "discountType": {
             "description": "Type of the discount",
             "type": "string",
-            "enum": [
-              "percent",
-              "fixed"
-            ],
+            "enum": ["percent", "fixed"],
             "example": "percent"
           },
           "discountValue": {
@@ -718,13 +655,7 @@
       },
       "flower": {
         "type": "object",
-        "required": [
-          "_id",
-          "name",
-          "price",
-          "imageUrl",
-          "isBouquet"
-        ],
+        "required": ["_id", "name", "price", "imageUrl", "isBouquet"],
         "properties": {
           "_id": {
             "description": "Recipe's unique identifier",
@@ -756,11 +687,7 @@
       },
       "user": {
         "type": "object",
-        "required": [
-          "_id",
-          "phone",
-          "email"
-        ],
+        "required": ["_id", "phone", "email"],
         "properties": {
           "_id": {
             "description": "User's unique identifier",
@@ -801,12 +728,7 @@
       },
       "inventory": {
         "type": "object",
-        "required": [
-          "_id",
-          "shopId",
-          "flowerId",
-          "stock"
-        ],
+        "required": ["_id", "shopId", "flowerId", "stock"],
         "properties": {
           "_id": {
             "description": "Ingredient's unique identifier",
@@ -857,11 +779,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "flowerId",
-                "count",
-                "priceAtPurchase"
-              ],
+              "required": ["flowerId", "count", "priceAtPurchase"],
               "properties": {
                 "flowerId": {
                   "description": "flower's unique id",
@@ -916,12 +834,7 @@
       },
       "shop": {
         "type": "object",
-        "required": [
-          "_id",
-          "name",
-          "address",
-          "location"
-        ],
+        "required": ["_id", "name", "address", "location"],
         "properties": {
           "_id": {
             "description": "Shop's unique identifier",
@@ -941,10 +854,7 @@
           "location": {
             "description": "Longtitude and latitude of the shop, for Google Maps",
             "type": "object",
-            "required": [
-              "lat",
-              "lng"
-            ],
+            "required": ["lat", "lng"],
             "properties": {
               "lat": {
                 "description": "Latitude of the shop",
@@ -968,11 +878,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -984,9 +890,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1005,11 +909,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1021,9 +921,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1042,11 +940,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1058,9 +952,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",
