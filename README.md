@@ -1,53 +1,32 @@
 # flower-delivery-app
 
-Flower {
-\_id
-name
-price
-imageUrl? // for frontend display
-dateAdded // for sorting by date
-isBouquet // optional: to distinguish bouquet vs single flower
-}
+Backend To-Do
+Base
 
-Order {
-\_id
-items: [{ flowerId, count, priceAtPurchase }]
-total
-deliveryAddress
-createdAt
-userId // reference to User
-couponId?
-shopId
-}
+- Set up backend with Node.js/Express (or another framework). +
+- Connect to a real database (PostgreSQL, MongoDB, MySQL, etc.).+
+- Implement API endpoints: +
+- GET /shops - return shops and flowers. +
+- POST /orders - create a new order (validate data). +
+- Store order in DB with fields: products, quantities, email, phone, address. +
 
-Coupon {
-\_id
-code
-discountType ("percent" | "fixed") // more flexible than just number
-discountValue
-validUntil? // optional for expiration
-}
+  Middle
 
-Shop {
-\_id
-name
-address
-location: { lat, lng } // useful for maps integration
-}
+- Extend /shops endpoint with sorting options (price/date). +
+- Support favorites flag for products. +
+- Add createdAt (datetime) to orders with timezone support. +
+  // default timestamp created in utc, use toLocaleString()
+- Add GET /orders/:id - return order details. +
 
-User {
-\_id
-email
-phone
-lastDeliveryAddress? // optional, updated on new order
-}
+  Advanced
 
-Inventory {
-\_id
-shopId
-flowerId
-stock
-}
+- Add pagination support for GET /shops. +
+- Add API integration for Google Maps (geocoding + shop location).
+- (extra) Calculate route + ETA from shop to customer.
+- (extra) Captcha validation for order creation.
 
-sorting by price
-sorting by date
+Optional / Bonus
+
+- GET /orders/history - query by email/phone/order id. +
+- Add coupons table in DB and GET /coupons. +
+- Support discount application in cart/order creation. +
