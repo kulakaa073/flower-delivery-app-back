@@ -38,7 +38,7 @@ export const getOrdersController = async (req, res, next) => {
   const email = req.body.email;
   const phone = req.body.phone;
 
-  const user = await getUser({ email, phone });
+  const user = await getUser(email, phone);
 
   if (!user) {
     throw createHttpError(404, 'User not found');
