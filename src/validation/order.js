@@ -5,7 +5,7 @@ export const createOrderSchema = Joi.object({
   items: Joi.array()
     .items(
       Joi.object({
-        _id: Joi.string()
+        flowerId: Joi.string()
           .required()
           .custom((value, helper) => {
             if (value && !isValidObjectId(value)) {
