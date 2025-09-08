@@ -5,7 +5,7 @@ const orderSchema = new Schema(
     items: {
       type: [
         {
-          flowerId: {
+          _id: {
             type: Schema.Types.ObjectId,
             ref: 'flowers',
             required: true,
